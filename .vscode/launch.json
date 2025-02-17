@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to running firmware",
+            "type": "cortex-debug",
+            "request": "attach",
+            "servertype": "openocd",
+            "executable": "${workspaceFolder}/target/riscv32imc-unknown-none-elf/debug/mik32-rt",
+            "gdbPath": "gdb-multiarch",
+            "device": "riscv",
+            "interface": "jtag",
+            "configFiles": [
+                "mikron-link.cfg",
+                "mik32.cfg"
+            ],
+            "preLaunchTask": "Flash Mik32",
+            "postAttachCommands": [
+                "set mem inaccessible-by-default off",
+                "mem 0x01000000 0x01002000 ro",
+                "mem 0x80000000 0xffffffff ro",
+                "set arch riscv:rv32",
+                "set remotetimeout 10",
+                "set remote hardware-breakpoint-limit 2",
+            ]
+        }
+    ]
+}

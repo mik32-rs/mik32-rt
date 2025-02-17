@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flash Mik32",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${HOME}/.platformio/packages/tool-mik32-uploader/mik32_upload.py",
+                "--run-openocd",
+                "--openocd-exec",
+                "/usr/bin/openocd",
+                "--openocd-scripts",
+                "${HOME}/.platformio/packages/tool-mik32-uploader/openocd-scripts/",
+                "app.hex",
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
