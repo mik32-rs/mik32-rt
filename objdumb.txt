@@ -1,163 +1,162 @@
 
-app:     file format elf32-littleriscv
-
+mik32-rt:	file format elf32-littleriscv
 
 Disassembly of section .text:
 
-02000000 <_start>:
- 2000000:	lui	t0,0x1f
- 2000002:	addi	t0,t0,1024 # 1f400 <STACK_SIZE+0x1f000>
+01000000 <_start>:
+ 1000000:      	lui	t0, 0x1f
+ 1000002:      	addi	t0, t0, 0x400
 
-02000006 <start_loop_delay>:
- 2000006:	nop
- 2000008:	addi	t0,t0,-1
- 200000a:	bnez	t0,2000006 <start_loop_delay>
- 200000e:	lui	sp,0x1002
- 2000012:	mv	sp,sp
- 2000016:	lui	gp,0x1000
- 200001a:	mv	gp,gp
- 200001e:	lui	a1,0x2000
- 2000022:	addi	a1,a1,352 # 2000160 <__TEXT_END__>
- 2000026:	lui	a2,0x2000
- 200002a:	addi	a2,a2,352 # 2000160 <__TEXT_END__>
- 200002e:	lui	a3,0x1000
- 2000032:	mv	a3,a3
- 2000036:	j	2000044 <.LL0002>
+01000006 <start_loop_delay>:
+ 1000006:      	nop
+ 1000008:      	addi	t0, t0, -0x1
+ 100000a:      	bnez	t0, 0x1000006 <start_loop_delay>
+ 100000e:      	lui	sp, 0x2004
+ 1000012:      	mv	sp, sp
+ 1000016:      	lui	gp, 0x2000
+ 100001a:      	mv	gp, gp
+ 100001e:      	lui	a1, 0x1000
+ 1000022:      	addi	a1, a1, 0x160
+ 1000026:      	lui	a2, 0x1000
+ 100002a:      	addi	a2, a2, 0x160
+ 100002e:      	lui	a3, 0x2000
+ 1000032:      	mv	a3, a3
+ 1000036:      	j	0x1000044 <.LL0002>
 
-02000038 <.LL0001>:
- 2000038:	lw	t0,0(a1)
- 200003c:	sw	t0,0(a3) # 1000000 <__BSS_END__>
- 2000040:	addi	a1,a1,4
- 2000042:	addi	a3,a3,4
+01000038 <.LL0001>:
+ 1000038:      	lw	t0, 0x0(a1)
+ 100003c:      	sw	t0, 0x0(a3)
+ 1000040:      	addi	a1, a1, 0x4
+ 1000042:      	addi	a3, a3, 0x4
 
-02000044 <.LL0002>:
- 2000044:	bltu	a1,a2,2000038 <.LL0001>
- 2000048:	lui	a1,0x2000
- 200004c:	addi	a1,a1,352 # 2000160 <__TEXT_END__>
- 2000050:	lui	a2,0x2000
- 2000054:	addi	a2,a2,352 # 2000160 <__TEXT_END__>
- 2000058:	lui	a3,0x1000
- 200005c:	mv	a3,a3
- 2000060:	j	200006e <.LL0004>
+01000044 <.LL0002>:
+ 1000044:      	bltu	a1, a2, 0x1000038 <.LL0001>
+ 1000048:      	lui	a1, 0x1000
+ 100004c:      	addi	a1, a1, 0x160
+ 1000050:      	lui	a2, 0x1000
+ 1000054:      	addi	a2, a2, 0x160
+ 1000058:      	lui	a3, 0x2000
+ 100005c:      	mv	a3, a3
+ 1000060:      	j	0x100006e <.LL0004>
 
-02000062 <.LL0003>:
- 2000062:	lw	t0,0(a1)
- 2000066:	sw	t0,0(a3) # 1000000 <__BSS_END__>
- 200006a:	addi	a1,a1,4
- 200006c:	addi	a3,a3,4
+01000062 <.LL0003>:
+ 1000062:      	lw	t0, 0x0(a1)
+ 1000066:      	sw	t0, 0x0(a3)
+ 100006a:      	addi	a1, a1, 0x4
+ 100006c:      	addi	a3, a3, 0x4
 
-0200006e <.LL0004>:
- 200006e:	bltu	a1,a2,2000062 <.LL0003>
- 2000072:	lui	a1,0x1000
- 2000076:	mv	a1,a1
- 200007a:	lui	a2,0x1000
- 200007e:	mv	a2,a2
- 2000082:	j	200008a <.LL0006>
+0100006e <.LL0004>:
+ 100006e:      	bltu	a1, a2, 0x1000062 <.LL0003>
+ 1000072:      	lui	a1, 0x2000
+ 1000076:      	mv	a1, a1
+ 100007a:      	lui	a2, 0x2000
+ 100007e:      	mv	a2, a2
+ 1000082:      	j	0x100008a <.LL0006>
 
-02000084 <.LL0005>:
- 2000084:	sw	zero,0(a1) # 1000000 <__BSS_END__>
- 2000088:	addi	a1,a1,4
+01000084 <.LL0005>:
+ 1000084:      	sw	zero, 0x0(a1)
+ 1000088:      	addi	a1, a1, 0x4
 
-0200008a <.LL0006>:
- 200008a:	bltu	a1,a2,2000084 <.LL0005>
- 200008e:	li	t0,8
- 2000090:	lui	t1,0x50
- 2000094:	addi	t1,t1,20 # 50014 <STACK_SIZE+0x4fc14>
- 2000096:	sw	t0,0(t1)
- 200009a:	lui	ra,0x2000
- 200009e:	jalr	184(ra) # 20000b8 <SmallSystemInit>
- 20000a2:	lui	ra,0x2000
- 20000a6:	jalr	184(ra) # 20000b8 <SmallSystemInit>
- 20000aa:	lui	ra,0x2000
- 20000ae:	jalr	340(ra) # 2000154 <main>
+0100008a <.LL0006>:
+ 100008a:      	bltu	a1, a2, 0x1000084 <.LL0005>
+ 100008e:      	li	t0, 0x8
+ 1000090:      	lui	t1, 0x50
+ 1000094:      	addi	t1, t1, 0x14
+ 1000096:      	sw	t0, 0x0(t1)
+ 100009a:      	lui	ra, 0x1000
+ 100009e:      	jalr	0xb8(ra)
+ 10000a2:      	lui	ra, 0x1000
+ 10000a6:      	jalr	0xb8(ra)
+ 10000aa:      	lui	ra, 0x1000
+ 10000ae:      	jalr	0x154(ra)
 
-020000b2 <.L1^B1>:
- 20000b2:	wfi
- 20000b6:	j	20000b2 <.L1^B1>
+010000b2 <.L11>:
+ 10000b2:      	wfi
+ 10000b6:      	j	0x10000b2 <.L11>
 
-020000b8 <SmallSystemInit>:
- 20000b8:	ret
- 20000ba:	unimp
- 20000bc:	unimp
-	...
+010000b8 <SystemInit>:
+ 10000b8:      	ret
+ 10000ba:      	unimp
+ 10000bc:      	unimp
+ 10000be:      	unimp
 
-020000c0 <trap_entry>:
- 20000c0:	j	20000c4 <raw_trap_handler>
+010000c0 <trap_entry>:
+ 10000c0:      	j	0x10000c4 <raw_trap_handler>
 
-020000c4 <raw_trap_handler>:
- 20000c4:	addi	sp,sp,-128
- 20000c6:	sw	ra,4(sp)
- 20000c8:	sw	sp,8(sp)
- 20000ca:	sw	gp,12(sp)
- 20000cc:	sw	tp,16(sp)
- 20000ce:	sw	t0,20(sp)
- 20000d0:	sw	t1,24(sp)
- 20000d2:	sw	t2,28(sp)
- 20000d4:	sw	s0,32(sp)
- 20000d6:	sw	s1,36(sp)
- 20000d8:	sw	a0,40(sp)
- 20000da:	sw	a1,44(sp)
- 20000dc:	sw	a2,48(sp)
- 20000de:	sw	a3,52(sp)
- 20000e0:	sw	a4,56(sp)
- 20000e2:	sw	a5,60(sp)
- 20000e4:	sw	a6,64(sp)
- 20000e6:	sw	a7,68(sp)
- 20000e8:	sw	s2,72(sp)
- 20000ea:	sw	s3,76(sp)
- 20000ec:	sw	s4,80(sp)
- 20000ee:	sw	s5,84(sp)
- 20000f0:	sw	s6,88(sp)
- 20000f2:	sw	s7,92(sp)
- 20000f4:	sw	s8,96(sp)
- 20000f6:	sw	s9,100(sp)
- 20000f8:	sw	s10,104(sp)
- 20000fa:	sw	s11,108(sp)
- 20000fc:	sw	t3,112(sp)
- 20000fe:	sw	t4,116(sp)
- 2000100:	sw	t5,120(sp)
- 2000102:	sw	t6,124(sp)
- 2000104:	auipc	ra,0x0
- 2000108:	addi	ra,ra,80 # 2000154 <main>
- 200010c:	jalr	ra
- 200010e:	lw	ra,4(sp)
- 2000110:	lw	sp,8(sp)
- 2000112:	lw	gp,12(sp)
- 2000114:	lw	tp,16(sp)
- 2000116:	lw	t0,20(sp)
- 2000118:	lw	t1,24(sp)
- 200011a:	lw	t2,28(sp)
- 200011c:	lw	s0,32(sp)
- 200011e:	lw	s1,36(sp)
- 2000120:	lw	a0,40(sp)
- 2000122:	lw	a1,44(sp)
- 2000124:	lw	a2,48(sp)
- 2000126:	lw	a3,52(sp)
- 2000128:	lw	a4,56(sp)
- 200012a:	lw	a5,60(sp)
- 200012c:	lw	a6,64(sp)
- 200012e:	lw	a7,68(sp)
- 2000130:	lw	s2,72(sp)
- 2000132:	lw	s3,76(sp)
- 2000134:	lw	s4,80(sp)
- 2000136:	lw	s5,84(sp)
- 2000138:	lw	s6,88(sp)
- 200013a:	lw	s7,92(sp)
- 200013c:	lw	s8,96(sp)
- 200013e:	lw	s9,100(sp)
- 2000140:	lw	s10,104(sp)
- 2000142:	lw	s11,108(sp)
- 2000144:	lw	t3,112(sp)
- 2000146:	lw	t4,116(sp)
- 2000148:	lw	t5,120(sp)
- 200014a:	lw	t6,124(sp)
- 200014c:	addi	sp,sp,128
- 200014e:	mret
+010000c4 <raw_trap_handler>:
+ 10000c4:      	addi	sp, sp, -0x80
+ 10000c6:      	sw	ra, 0x4(sp)
+ 10000c8:      	sw	sp, 0x8(sp)
+ 10000ca:      	sw	gp, 0xc(sp)
+ 10000cc:      	sw	tp, 0x10(sp)
+ 10000ce:      	sw	t0, 0x14(sp)
+ 10000d0:      	sw	t1, 0x18(sp)
+ 10000d2:      	sw	t2, 0x1c(sp)
+ 10000d4:      	sw	s0, 0x20(sp)
+ 10000d6:      	sw	s1, 0x24(sp)
+ 10000d8:      	sw	a0, 0x28(sp)
+ 10000da:      	sw	a1, 0x2c(sp)
+ 10000dc:      	sw	a2, 0x30(sp)
+ 10000de:      	sw	a3, 0x34(sp)
+ 10000e0:      	sw	a4, 0x38(sp)
+ 10000e2:      	sw	a5, 0x3c(sp)
+ 10000e4:      	sw	a6, 0x40(sp)
+ 10000e6:      	sw	a7, 0x44(sp)
+ 10000e8:      	sw	s2, 0x48(sp)
+ 10000ea:      	sw	s3, 0x4c(sp)
+ 10000ec:      	sw	s4, 0x50(sp)
+ 10000ee:      	sw	s5, 0x54(sp)
+ 10000f0:      	sw	s6, 0x58(sp)
+ 10000f2:      	sw	s7, 0x5c(sp)
+ 10000f4:      	sw	s8, 0x60(sp)
+ 10000f6:      	sw	s9, 0x64(sp)
+ 10000f8:      	sw	s10, 0x68(sp)
+ 10000fa:      	sw	s11, 0x6c(sp)
+ 10000fc:      	sw	t3, 0x70(sp)
+ 10000fe:      	sw	t4, 0x74(sp)
+ 1000100:      	sw	t5, 0x78(sp)
+ 1000102:      	sw	t6, 0x7c(sp)
+ 1000104:      	auipc	ra, 0x0
+ 1000108:      	addi	ra, ra, 0x50
+ 100010c:      	jalr	ra
+ 100010e:      	lw	ra, 0x4(sp)
+ 1000110:      	lw	sp, 0x8(sp)
+ 1000112:      	lw	gp, 0xc(sp)
+ 1000114:      	lw	tp, 0x10(sp)
+ 1000116:      	lw	t0, 0x14(sp)
+ 1000118:      	lw	t1, 0x18(sp)
+ 100011a:      	lw	t2, 0x1c(sp)
+ 100011c:      	lw	s0, 0x20(sp)
+ 100011e:      	lw	s1, 0x24(sp)
+ 1000120:      	lw	a0, 0x28(sp)
+ 1000122:      	lw	a1, 0x2c(sp)
+ 1000124:      	lw	a2, 0x30(sp)
+ 1000126:      	lw	a3, 0x34(sp)
+ 1000128:      	lw	a4, 0x38(sp)
+ 100012a:      	lw	a5, 0x3c(sp)
+ 100012c:      	lw	a6, 0x40(sp)
+ 100012e:      	lw	a7, 0x44(sp)
+ 1000130:      	lw	s2, 0x48(sp)
+ 1000132:      	lw	s3, 0x4c(sp)
+ 1000134:      	lw	s4, 0x50(sp)
+ 1000136:      	lw	s5, 0x54(sp)
+ 1000138:      	lw	s6, 0x58(sp)
+ 100013a:      	lw	s7, 0x5c(sp)
+ 100013c:      	lw	s8, 0x60(sp)
+ 100013e:      	lw	s9, 0x64(sp)
+ 1000140:      	lw	s10, 0x68(sp)
+ 1000142:      	lw	s11, 0x6c(sp)
+ 1000144:      	lw	t3, 0x70(sp)
+ 1000146:      	lw	t4, 0x74(sp)
+ 1000148:      	lw	t5, 0x78(sp)
+ 100014a:      	lw	t6, 0x7c(sp)
+ 100014c:      	addi	sp, sp, 0x80
+ 100014e:      	mret
 
-02000152 <.L1^B2>:
- 2000152:	j	2000152 <.L1^B2>
+01000152 <.L12>:
+ 1000152:      	j	0x1000152 <.L12>
 
-02000154 <main>:
- 2000154:	nop
- 2000156:	j	2000154 <main>
-	...
+01000154 <trap_handler>:
+ 1000154:      	nop
+ 1000156:      	j	0x1000154 <trap_handler>
+		...

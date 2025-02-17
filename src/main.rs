@@ -7,7 +7,13 @@ use riscv::asm::nop;
 
 #[unsafe(no_mangle)]
 fn main() {
+    let mut i: i32 = 0;
+    let ptr: *mut i32 = &mut i;
+
     loop {
+        unsafe {
+            ptr.write_volatile(ptr.read_volatile() + 1);
+        }
         nop();
     }
 }
