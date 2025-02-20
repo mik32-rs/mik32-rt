@@ -1,7 +1,7 @@
 MEMORY
 {
-    RAM : ORIGIN = 0x80000000, LENGTH = 16K
-    FLASH : ORIGIN = 0x20000000, LENGTH = 4M
+    RAM : ORIGIN = 0x02000000, LENGTH = 16K
+    FLASH : ORIGIN = 0x01000000, LENGTH = 8K
 }
 
 REGION_ALIAS("REGION_TEXT", FLASH);
@@ -38,7 +38,7 @@ REGION_ALIAS("REGION_STACK", RAM);
 PROVIDE(_stext = ORIGIN(REGION_TEXT));
 PROVIDE(_stack_start = ORIGIN(REGION_STACK) + LENGTH(REGION_STACK));
 PROVIDE(_max_hart_id = 0);
-PROVIDE(_hart_stack_size = 2K);
+PROVIDE(_hart_stack_size = 1K);
 PROVIDE(_heap_size = 0);
 
 /** TRAP ENTRY POINTS **/
@@ -110,7 +110,7 @@ SECTIONS
     /* This section is intended to make _stext address work */
     . = ABSOLUTE(_stext);
   } > REGION_TEXT
-
+  
   .text _stext :
   {
     __stext = .;
@@ -119,6 +119,7 @@ SECTIONS
     /* point of the program. */
     KEEP(*(.init));
     . = ALIGN(4);
+    . = ORIGIN(REGION_TEXT) + 0xC0;
     KEEP(*(.init.trap));
     . = ALIGN(4);
     *(.trap);
@@ -134,6 +135,7 @@ SECTIONS
   {
      . = ALIGN(4);
     __srodata = .;
+    __DATA_IMAGE_START__ = .;
 
     *(.srodata .srodata.*);
     *(.rodata .rodata.*);
@@ -143,15 +145,18 @@ SECTIONS
        section will have the correct alignment. */
     . = ALIGN(4);
     __erodata = .;
+    __DATA_IMAGE_END__ = .;
   } > REGION_RODATA
 
   .data : ALIGN(4)
   {
     . = ALIGN(4);
     __sdata = .;
+    __DATA_START__ = .;
 
     /* Must be called __global_pointer$ for linker relaxations to work. */
-    PROVIDE(__global_pointer$ = . + 0x800);
+    PROVIDE(__global_pointer$ = .);
+    _gp = .;
     *(.sdata .sdata.* .sdata2 .sdata2.*);
     *(.data .data.*);
 
@@ -170,8 +175,10 @@ SECTIONS
   {
     . = ALIGN(4);
     __sbss = .;
+    __BSS_START__ = .;
 
     *(.sbss .sbss.* .bss .bss.*);
+    __BSS_END__ = .;
   } > REGION_BSS
 
   /* Allow sections from user `memory.x` injected using `INSERT AFTER .bss` to
@@ -194,6 +201,7 @@ SECTIONS
   {
     __estack = .;
     . = ABSOLUTE(_stack_start);
+    __C_STACK_TOP__ = .;
     __sstack = .;
   } > REGION_STACK
 

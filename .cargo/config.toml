@@ -6,8 +6,10 @@
 rustflags = [
     "-C",
     "link-arg=crt0.o",
+    # "-C",
+    # "link-arg=-Tlink.x",
     "-C",
-    "link-arg=-Tlink.x",
+    "link-arg=-Tlink_riscv-rt.x",
     # "-C",
     # "link-arg=--nmagic",
     # "-C",

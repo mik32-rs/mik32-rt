@@ -6,8 +6,8 @@
 
 .globl trap_entry
 .globl trap_handler
-.globl raw_trap_handler
-.weak trap_handler, raw_trap_handler
+.globl _start_trap
+.weak trap_handler, _start_trap
 
 .altmacro
 .macro memcpy src_beg, src_end, dst, tmp_reg
@@ -57,7 +57,7 @@ memset_2:
 
 
 
-.text
+.section .init, "ax"
 
 _start:
     
@@ -80,10 +80,10 @@ _start:
 
     # Init ramfunc
     #
-    la_abs  a1, __RAM_TEXT_IMAGE_START__
-    la_abs  a2, __RAM_TEXT_IMAGE_END__
-    la_abs  a3, __RAM_TEXT_START__
-    memcpy  a1, a2, a3, t0
+    # # la_abs  a1, __RAM_TEXT_IMAGE_START__
+    # # la_abs  a2, __RAM_TEXT_IMAGE_END__
+    # # la_abs  a3, __RAM_TEXT_START__
+    # # memcpy  a1, a2, a3, t0
     
     # Clear bss
     #
@@ -104,14 +104,15 @@ SmallSystemInit:
 SystemInit:
     ret
 
-.section .trap_text, "ax"
+.section .init.trap, "ax"
 # // .org should be consistent with
 # // default mtvec value (set in scr1_arch_description.svh)
 # //.org 0xC0
 trap_entry:
-    j raw_trap_handler
+    j _start_trap
 
-raw_trap_handler:
+.section .trap, "ax"
+_start_trap:
     # // Save registers
     addi    sp, sp, -(128)
     .irp index, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
@@ -131,5 +132,6 @@ raw_trap_handler:
 
 # // Default handler: infinit loop
 # // (weak symbol here - may be redefined)
+.section .trap.rust, "ax"
 trap_handler:
 1:  j       1b
