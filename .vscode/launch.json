@@ -11,8 +11,8 @@
             "device": "riscv",
             "interface": "jtag",
             "configFiles": [
-                "mikron-link.cfg",
-                "mik32.cfg"
+                "interface/mikron-link.cfg",
+                "interface/mik32.cfg"
             ],
             "preLaunchTask": "Flash Mik32",
             "postAttachCommands": [
