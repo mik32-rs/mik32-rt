@@ -5,12 +5,15 @@
 
 use core::{arch::{global_asm, riscv32::nop}, panic::PanicInfo};
 
-
+static mut B: u8 = 0;
+static mut T: u8 = 129;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn __start_rust() -> ! {
     let mut i: i32 = 0;
     let ptr: *mut i32 = &mut i;
+    let _b = &raw const B;
+    let _t = &raw const T;
 
     loop {
         unsafe {

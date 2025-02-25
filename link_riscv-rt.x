@@ -133,10 +133,6 @@ SECTIONS
 
   .rodata : ALIGN(4)
   {
-     . = ALIGN(4);
-    __srodata = .;
-    __DATA_IMAGE_START__ = .;
-
     *(.srodata .srodata.*);
     *(.rodata .rodata.*);
 
@@ -144,8 +140,6 @@ SECTIONS
        This is required by LLD to ensure the LMA of the following .data
        section will have the correct alignment. */
     . = ALIGN(4);
-    __erodata = .;
-    __DATA_IMAGE_END__ = .;
   } > REGION_RODATA
 
   .data : ALIGN(4)
@@ -161,6 +155,9 @@ SECTIONS
     *(.data .data.*);
 
   } > REGION_DATA AT > REGION_RODATA
+
+  __DATA_IMAGE_START__ = LOADADDR(.data);
+  __DATA_IMAGE_END__ = LOADADDR(.data) + SIZEOF(.data);
   
   /* Allow sections from user `memory.x` injected using `INSERT AFTER .data` to
    * use the .data loading mechanism by pushing __edata. Note: do not change
