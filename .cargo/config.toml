@@ -4,8 +4,8 @@
 # runner = "riscv64-unknown-elf-gdb -q -x hifive1-examples/gdb_init_sh" # Uncomment for hardware (semihosting)
 # runner = "cargo objcopy --release -- -O ihex app.hex"
 rustflags = [
-    "-C",
-    "link-arg=crt0.o",
+    # "-C",
+    # "link-arg=crt0.o",
     # "-C",
     # "link-arg=-Tlink.x",
     "-C",
