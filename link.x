@@ -35,11 +35,12 @@ CL_SIZE = 16;
 SECTIONS {
     .text ORIGIN(REGION_TEXT) : {
         PROVIDE(__TEXT_START__ = .);
-        *crt0.o(.text .text.*)
+        *(.text._start) 
+        *(.text .text.*)
         *(.text.smallsysteminit)
         *(.text.SmallSystemInit)
         . = ORIGIN(REGION_TEXT) + 0xC0;
-        KEEP(*crt0.o(.trap_text))
+        KEEP(*(.trap_text))
 
         *(.text)
         *(.text.*)
@@ -48,6 +49,8 @@ SECTIONS {
         . = ALIGN(CL_SIZE);
         PROVIDE(__TEXT_END__ = .);
     } >REGION_TEXT 
+
+
 
     .data : 
     AT( __TEXT_END__ ) {
