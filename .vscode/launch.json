@@ -14,7 +14,7 @@
                 "interface/mikron-link.cfg",
                 "interface/mik32.cfg"
             ],
-            "preLaunchTask": "Flash Mik32",
+            "preLaunchTask": "Build and Flash",
             "postAttachCommands": [
                 "set mem inaccessible-by-default off",
                 "mem 0x01000000 0x01002000 ro",
