@@ -6,7 +6,7 @@
             "type": "cortex-debug",
             "request": "attach",
             "servertype": "openocd",
-            "executable": "${workspaceFolder}/target/riscv32imc-unknown-none-elf/release/mik32-rt",
+            "executable": "${workspaceFolder}/target/riscv32imc-unknown-none-elf/debug/mik32-rt",
             "gdbPath": "gdb-multiarch",
             "device": "riscv",
             "interface": "jtag",

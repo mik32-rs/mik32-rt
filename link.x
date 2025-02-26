@@ -97,7 +97,7 @@ SECTIONS {
 
     /* Code intended to be copied to REGION_RAM before execution */
     .ram_text : 
-    AT( ALIGN(__DATA_IMAGE_END__, CL_SIZE) ) {
+    AT( ALIGN(__BSS_END__, CL_SIZE) ) {
         PROVIDE(__RAM_TEXT_START__ = .);
         *(.ram_text)
         . = ALIGN(CL_SIZE);
@@ -106,8 +106,8 @@ SECTIONS {
     
     __RAM_TEXT_IMAGE_START__ = LOADADDR(.ram_text);
     __RAM_TEXT_IMAGE_END__ = LOADADDR(.ram_text) + SIZEOF(.ram_text);
-    ASSERT(__RAM_TEXT_IMAGE_END__ < ORIGIN(REGION_TEXT) + LENGTH(REGION_TEXT), "REGION_TEXT segment overflows")
 
+    ASSERT(__RAM_TEXT_IMAGE_END__ < ORIGIN(REGION_TEXT) + LENGTH(REGION_TEXT), "REGION_TEXT segment overflows")
     ASSERT(__RAM_TEXT_END__ < ORIGIN(REGION_RAM) + LENGTH(REGION_RAM) - STACK_SIZE, "REGION_RAM section overflows")
 
     _end = .;
