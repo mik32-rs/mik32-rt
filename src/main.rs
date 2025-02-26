@@ -5,6 +5,12 @@
 
 use core::{arch::{global_asm, riscv32::nop}, panic::PanicInfo};
 
+#[unsafe(link_section = ".ram_text")]
+#[inline(never)]
+#[unsafe(no_mangle)]
+pub extern "C" fn plus_one(ptr: *mut i32) {
+    unsafe { ptr.write_volatile(ptr.read_volatile() + 1) };
+}
 
 #[unsafe(no_mangle)]
 pub extern "C" fn __start_rust() -> ! {
@@ -12,9 +18,7 @@ pub extern "C" fn __start_rust() -> ! {
     let ptr: *mut i32 = &mut i;
 
     loop {
-        unsafe {
-            ptr.write_volatile(ptr.read_volatile() + 1);
-        }
+        plus_one(ptr);
         nop();
     }
 }

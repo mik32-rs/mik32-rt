@@ -36,7 +36,7 @@ SECTIONS {
     .text ORIGIN(REGION_TEXT) : {
         PROVIDE(__TEXT_START__ = .);
         *(.text._start) 
-        *(.text .text.*)
+        /* *(.text .text.*) */
         *(.text.smallsysteminit)
         *(.text.SmallSystemInit)
         . = ORIGIN(REGION_TEXT) + 0xC0;
