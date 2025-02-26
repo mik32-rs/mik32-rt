@@ -10,6 +10,7 @@ REGION_ALIAS("REGION_DATA", RAM);
 REGION_ALIAS("REGION_BSS", RAM);
 REGION_ALIAS("REGION_HEAP", RAM);
 REGION_ALIAS("REGION_STACK", RAM);
+REGION_ALIAS("REGION_RAM", RAM);
 
 /* # Developer notes
 
@@ -183,6 +184,20 @@ SECTIONS
    * output region or load region in those user sections! */
   . = ALIGN(4);
   __ebss = .;
+
+  .ram_text : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __RAM_TEXT_START__ = .;
+    *(.ram_text)
+    __RAM_TEXT_END__ = .;
+  } > REGION_RAM
+
+  __RAM_TEXT_IMAGE_START__ = LOADADDR(.ram_text);
+  __RAM_TEXT_IMAGE_END__ = LOADADDR(.ram_text) + SIZEOF(.ram_text);
+
+  /* ASSERT(__RAM_TEXT_IMAGE_END__ < ORIGIN(REGION_TEXT) + LENGTH(REGION_TEXT), "REGION_TEXT segment overflows")
+  ASSERT(__RAM_TEXT_END__ < ORIGIN(REGION_RAM) + LENGTH(REGION_RAM) - STACK_SIZE, "REGION_RAM section overflows") */
 
   /* fictitious region that represents the memory available for the heap */
   .heap (NOLOAD) : ALIGN(4)

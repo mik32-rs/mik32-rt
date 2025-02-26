@@ -5,20 +5,21 @@
 
 use core::{arch::{global_asm, riscv32::nop}, panic::PanicInfo};
 
-static mut B: u8 = 0;
-static mut T: u8 = 129;
+
+#[unsafe(link_section = ".ram_text")]
+#[inline(never)]
+#[unsafe(no_mangle)]
+pub extern "C" fn plus_one(ptr: *mut i32) {
+    unsafe { ptr.write_volatile(ptr.read_volatile() + 1) };
+}
 
 #[unsafe(no_mangle)]
 pub extern "C" fn __start_rust() -> ! {
     let mut i: i32 = 0;
     let ptr: *mut i32 = &mut i;
-    let _b = &raw const B;
-    let _t = &raw const T;
 
     loop {
-        unsafe {
-            ptr.write_volatile(ptr.read_volatile() + 1);
-        }
+        plus_one(ptr);
         nop();
     }
 }
@@ -103,10 +104,10 @@ global_asm!(
         la_abs  a3, __DATA_START__
         memcpy  a1, a2, a3, t0
 
-        # # la_abs  a1, __RAM_TEXT_IMAGE_START__
-        # # la_abs  a2, __RAM_TEXT_IMAGE_END__
-        # # la_abs  a3, __RAM_TEXT_START__
-        # # memcpy  a1, a2, a3, t0
+        la_abs  a1, __RAM_TEXT_IMAGE_START__
+        la_abs  a2, __RAM_TEXT_IMAGE_END__
+        la_abs  a3, __RAM_TEXT_START__
+        memcpy  a1, a2, a3, t0
 
         la_abs  a1, __BSS_START__
         la_abs  a2, __BSS_END__
