@@ -6,7 +6,7 @@
             "type": "cortex-debug",
             "request": "attach",
             "servertype": "openocd",
-            "executable": "${workspaceFolder}/target/riscv32imc-unknown-none-elf/release/mik32-rt",
+            "executable": "${workspaceFolder}/target/riscv32imc-unknown-none-elf/debug/mik32-rt",
             "gdbPath": "gdb-multiarch",
             "device": "riscv",
             "interface": "jtag",
@@ -14,7 +14,7 @@
                 "interface/mikron-link.cfg",
                 "interface/mik32.cfg"
             ],
-            "preLaunchTask": "Build and Flash",
+            "preLaunchTask": "Flash Mik32",
             "postAttachCommands": [
                 "set mem inaccessible-by-default off",
                 "mem 0x01000000 0x01002000 ro",

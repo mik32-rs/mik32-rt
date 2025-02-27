@@ -13,13 +13,21 @@ pub extern "C" fn plus_one(ptr: *mut i32) {
     unsafe { ptr.write_volatile(ptr.read_volatile() + 1) };
 }
 
+static mut B: u8 = 0;
+static mut T: u8 = 129;
+
 #[unsafe(no_mangle)]
 pub extern "C" fn __start_rust() -> ! {
     let mut i: i32 = 0;
     let ptr: *mut i32 = &mut i;
+    let _b = &raw const B;
+    let _t = &raw const T;
 
     loop {
-        plus_one(ptr);
+        unsafe {
+            // ptr.write_volatile(ptr.read_volatile() + 1);
+            plus_one(ptr);
+        }
         nop();
     }
 }
