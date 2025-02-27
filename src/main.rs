@@ -24,10 +24,7 @@ pub extern "C" fn __start_rust() -> ! {
     let _t = &raw const T;
 
     loop {
-        unsafe {
-            // ptr.write_volatile(ptr.read_volatile() + 1);
-            plus_one(ptr);
-        }
+        plus_one(ptr);
         nop();
     }
 }
@@ -104,21 +101,21 @@ global_asm!(
         addi t0, t0, -1
         bnez t0, start_loop_delay
 
-        la_abs  sp, __C_STACK_TOP__
+        la_abs  sp, __sstack
         la_abs  gp, _gp
 
-        la_abs  a1, __DATA_IMAGE_START__
-        la_abs  a2, __DATA_IMAGE_END__
-        la_abs  a3, __DATA_START__
+        la_abs  a1, __sidata
+        la_abs  a2, __eidata
+        la_abs  a3, __sdata
         memcpy  a1, a2, a3, t0
 
-        la_abs  a1, __RAM_TEXT_IMAGE_START__
-        la_abs  a2, __RAM_TEXT_IMAGE_END__
-        la_abs  a3, __RAM_TEXT_START__
+        la_abs  a1, __siram_text
+        la_abs  a2, __eiram_text
+        la_abs  a3, __sram_text
         memcpy  a1, a2, a3, t0
 
-        la_abs  a1, __BSS_START__
-        la_abs  a2, __BSS_END__
+        la_abs  a1, __sbss
+        la_abs  a2, __ebss
         memset a1, a2, zero
 
         jalr_abs ra, SmallSystemInit

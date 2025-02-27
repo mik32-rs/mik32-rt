@@ -147,7 +147,6 @@ SECTIONS
   {
     . = ALIGN(4);
     __sdata = .;
-    __DATA_START__ = .;
 
     /* Must be called __global_pointer$ for linker relaxations to work. */
     PROVIDE(__global_pointer$ = .);
@@ -157,8 +156,8 @@ SECTIONS
 
   } > REGION_DATA AT > REGION_RODATA
 
-  __DATA_IMAGE_START__ = LOADADDR(.data);
-  __DATA_IMAGE_END__ = LOADADDR(.data) + SIZEOF(.data);
+  __sidata = LOADADDR(.data);
+  __eidata = LOADADDR(.data) + SIZEOF(.data);
   
   /* Allow sections from user `memory.x` injected using `INSERT AFTER .data` to
    * use the .data loading mechanism by pushing __edata. Note: do not change
@@ -173,10 +172,8 @@ SECTIONS
   {
     . = ALIGN(4);
     __sbss = .;
-    __BSS_START__ = .;
 
     *(.sbss .sbss.* .bss .bss.*);
-    __BSS_END__ = .;
   } > REGION_BSS
 
   /* Allow sections from user `memory.x` injected using `INSERT AFTER .bss` to
@@ -188,16 +185,17 @@ SECTIONS
   .ram_text : ALIGN(4)
   {
     . = ALIGN(4);
-    __RAM_TEXT_START__ = .;
+    __sram_text = .;
     *(.ram_text)
-    __RAM_TEXT_END__ = .;
   } > REGION_RAM AT > REGION_TEXT
+  . = ALIGN(4);
+  __eram_text = .;
 
-  __RAM_TEXT_IMAGE_START__ = LOADADDR(.ram_text);
-  __RAM_TEXT_IMAGE_END__ = LOADADDR(.ram_text) + SIZEOF(.ram_text);
+  __siram_text = LOADADDR(.ram_text);
+  __eiram_text = LOADADDR(.ram_text) + SIZEOF(.ram_text);
 
-  ASSERT(__RAM_TEXT_IMAGE_END__ < ORIGIN(REGION_TEXT) + LENGTH(REGION_TEXT), "REGION_TEXT segment overflows")
-  /* ASSERT(__RAM_TEXT_END__ < ORIGIN(REGION_RAM) + LENGTH(REGION_RAM) - STACK_SIZE, "REGION_RAM section overflows") */
+  ASSERT(__eiram_text < ORIGIN(REGION_TEXT) + LENGTH(REGION_TEXT), "REGION_TEXT segment overflows")
+  /* ASSERT(__eram_text < ORIGIN(REGION_RAM) + LENGTH(REGION_RAM) - STACK_SIZE, "REGION_RAM section overflows") */
 
 
   /* fictitious region that represents the memory available for the heap */
@@ -214,7 +212,6 @@ SECTIONS
   {
     __estack = .;
     . = ABSOLUTE(_stack_start);
-    __C_STACK_TOP__ = .;
     __sstack = .;
   } > REGION_STACK
 
