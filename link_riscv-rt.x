@@ -1,11 +1,12 @@
 MEMORY
 {
     RAM : ORIGIN = 0x02000000, LENGTH = 16K
-    FLASH : ORIGIN = 0x01000000, LENGTH = 8K
+    FLASH_TEXT : ORIGIN = 0x01000000, LENGTH = 4K
+    FLASH_DATA : ORIGIN = 0x01001000, LENGTH = 4K
 }
 
-REGION_ALIAS("REGION_TEXT", FLASH);
-REGION_ALIAS("REGION_RODATA", FLASH);
+REGION_ALIAS("REGION_TEXT", FLASH_TEXT);
+REGION_ALIAS("REGION_RODATA", FLASH_DATA);
 REGION_ALIAS("REGION_DATA", RAM);
 REGION_ALIAS("REGION_BSS", RAM);
 REGION_ALIAS("REGION_HEAP", RAM);
@@ -53,56 +54,6 @@ EXTERN(_start_trap);
    the riscv-rt crate provides an implementation of this function, which saves caller saved
    registers, calls the the DefaultHandler ISR, restores caller saved registers and returns. */
 PROVIDE(_start_DefaultHandler_trap = _start_trap);
-
-/* When vectored trap mode is enabled, each interrupt source must implement its own
-   trap entry point. By default, all interrupts start in _start_trap. However, users can
-   override these alias by defining the symbol themselves */
-PROVIDE(_start_SupervisorSoft_trap = _start_DefaultHandler_trap);
-PROVIDE(_start_MachineSoft_trap = _start_DefaultHandler_trap);
-PROVIDE(_start_SupervisorTimer_trap = _start_DefaultHandler_trap);
-PROVIDE(_start_MachineTimer_trap = _start_DefaultHandler_trap);
-PROVIDE(_start_SupervisorExternal_trap = _start_DefaultHandler_trap);
-PROVIDE(_start_MachineExternal_trap = _start_DefaultHandler_trap);
-
-/** EXCEPTION HANDLERS **/
-
-/* Default exception handler. The riscv-rt crate provides a weak alias of this function,
-   which is a busy loop. Users can override this alias by defining the symbol themselves */
-EXTERN(ExceptionHandler);
-
-/* It is possible to define a special handler for each exception type.
-   By default, all exceptions are handled by ExceptionHandler. However, users can
-   override these alias by defining the symbol themselves */
-PROVIDE(InstructionMisaligned = ExceptionHandler);
-PROVIDE(InstructionFault = ExceptionHandler);
-PROVIDE(IllegalInstruction = ExceptionHandler);
-PROVIDE(Breakpoint = ExceptionHandler);
-PROVIDE(LoadMisaligned = ExceptionHandler);
-PROVIDE(LoadFault = ExceptionHandler);
-PROVIDE(StoreMisaligned = ExceptionHandler);
-PROVIDE(StoreFault = ExceptionHandler);
-PROVIDE(UserEnvCall = ExceptionHandler);
-PROVIDE(SupervisorEnvCall = ExceptionHandler);
-PROVIDE(MachineEnvCall = ExceptionHandler);
-PROVIDE(InstructionPageFault = ExceptionHandler);
-PROVIDE(LoadPageFault = ExceptionHandler);
-PROVIDE(StorePageFault = ExceptionHandler);
-
-/** INTERRUPT HANDLERS **/
-
-/* Default interrupt handler. The riscv-rt crate provides a weak alias of this function,
-   which is a busy loop. Users can override this alias by defining the symbol themselves */
-EXTERN(DefaultHandler);
-
-/* It is possible to define a special handler for each interrupt type.
-   By default, all interrupts are handled by DefaultHandler. However, users can
-   override these alias by defining the symbol themselves */
-PROVIDE(SupervisorSoft = DefaultHandler);
-PROVIDE(MachineSoft = DefaultHandler);
-PROVIDE(SupervisorTimer = DefaultHandler);
-PROVIDE(MachineTimer = DefaultHandler);
-PROVIDE(SupervisorExternal = DefaultHandler);
-PROVIDE(MachineExternal = DefaultHandler);
 
 SECTIONS
 {
@@ -193,10 +144,6 @@ SECTIONS
 
   __siram_text = LOADADDR(.ram_text);
   __eiram_text = LOADADDR(.ram_text) + SIZEOF(.ram_text);
-
-  ASSERT(__eiram_text < ORIGIN(REGION_TEXT) + LENGTH(REGION_TEXT), "REGION_TEXT segment overflows")
-  /* ASSERT(__eram_text < ORIGIN(REGION_RAM) + LENGTH(REGION_RAM) - STACK_SIZE, "REGION_RAM section overflows") */
-
 
   /* fictitious region that represents the memory available for the heap */
   .heap (NOLOAD) : ALIGN(4)
