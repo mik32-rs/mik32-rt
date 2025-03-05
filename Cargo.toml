@@ -1,13 +1,28 @@
 [package]
 name = "mik32-rt"
+description = "Minimal runtime / startup for MIK32 MCUs, managed by the mik32-rs team"
 version = "0.1.0"
+authors.workspace = true
+homepage.workspace = true
+categories.workspace = true
+license.workspace = true
+edition.workspace = true
+keywords.workspace = true
+
+[workspace.package]
+authors = ["Denis Bykov, Raul Alimbekov"]
+repository = ""
+documentation = ""
+homepage = "https://github.com/mik32-rs"
+categories = ["embedded", "no-std", "hardware-support"]
+keywords = ["riscv", "mik32", "pac"]
+license = "GPL-3.0-only"
+version = "0.5.0"
 edition = "2024"
 
 [dependencies]
-riscv = { version = "*" }
-
-# [build-dependencies]
-# cc = "1.0"
+riscv = { version = "0.13.0" }
+mik32-rt-macros = { version = "0.5.0", path = "./macros" }
 
 [profile.release]
 codegen-units = 1

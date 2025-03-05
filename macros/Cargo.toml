@@ -1,0 +1,24 @@
+[package]
+name = "mik32-rt-macros"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+repository.workspace = true
+documentation.workspace = true
+homepage.workspace = true
+categories.workspace = true
+license.workspace = true
+description = "Macros re-exported in `mik32-rt`"
+keywords = ["riscv", "mik32"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1.0"
+proc-macro2 = "1.0"
+proc-macro-error = "1.0.4"
+
+[dependencies.syn]
+version = "1.0"
+features = ["extra-traits", "full"]

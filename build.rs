@@ -11,11 +11,4 @@ fn main() {
         .unwrap();
     println!("cargo:rustc-link-search={}", out.display());
     println!("cargo:rerun-if-changed=link.x");
-
-    // cc::Build::new()
-    //     .asm_flag("-march=rv32imc_zicsr_zifencei")
-    //     .asm_flag("-mabi=ilp32")
-    //     .asm_flag("-g")
-    //     .file("/home/zbykovd/projects/mik32/mik32-rt/crt0.S")
-    //     .compile("csr0");
 }
