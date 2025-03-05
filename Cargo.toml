@@ -11,7 +11,7 @@ keywords.workspace = true
 
 [workspace.package]
 authors = ["Denis Bykov, Raul Alimbekov"]
-repository = ""
+repository = "https://github.com/mik32-rs/mik32-rt"
 documentation = ""
 homepage = "https://github.com/mik32-rs"
 categories = ["embedded", "no-std", "hardware-support"]
