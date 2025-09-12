@@ -72,6 +72,11 @@ fn main() -> ! {
     }
 }
 
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+    loop {}
+}
+
 #[unsafe(export_name = "trap_handler")]
 fn trap() {
     let p = unsafe {Peripherals::steal()};
