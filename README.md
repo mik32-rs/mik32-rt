@@ -1,3 +1,4 @@
+[![crates.io](https://img.shields.io/crates/v/mik32-rt.svg)](https://crates.io/crates/mik32-rt)
 [![crates.io](https://img.shields.io/crates/d/mik32-rt.svg)](https://crates.io/crates/mik32-rt)
 
 # `mik32-rt`
