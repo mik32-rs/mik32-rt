@@ -11,7 +11,7 @@ Examples are found in the `examples/` folder.
 - Install `mik32-uploader` by following the instructions in the [mik32-uploader README.md](https://github.com/MikronMIK32/mik32-uploader/blob/master/README.md).
 - Install cargo-binutils (required for cargo objcopy) - see the [official instructions](https://github.com/rust-embedded/cargo-binutils/blob/master/README.md)
 - Go to the examples/ directory
-- Generate HEX file with [`cargo-binutils`](https://github.com/rust-embedded/cargo-binutils). For example:
+- Generate HEX file with `cargo-binutils`. For example:
   
 ``` bash
 cargo objcopy --release --bin blink -- -O ihex blink.hex
