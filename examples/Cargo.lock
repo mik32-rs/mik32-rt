@@ -29,7 +29,7 @@ dependencies = [
  "mik32-rt",
  "mik32-rt-macros",
  "mik32v2-pac",
- "riscv 0.13.0",
+ "riscv 0.15.0",
 ]
 
 [[package]]
@@ -116,19 +116,6 @@ dependencies = [
 
 [[package]]
 name = "riscv"
-version = "0.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "afa3cdbeccae4359f6839a00e8b77e5736caa200ba216caf38d24e4c16e2b586"
-dependencies = [
- "critical-section",
- "embedded-hal",
- "paste",
- "riscv-macros 0.2.0",
- "riscv-pac",
-]
-
-[[package]]
-name = "riscv"
 version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b05cfa3f7b30c84536a9025150d44d26b8e1cc20ddf436448d74cd9591eefb25"
@@ -145,17 +132,6 @@ name = "riscv-macros"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f265be5d634272320a7de94cea15c22a3bfdd4eb42eb43edc528415f066a1f25"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.106",
-]
-
-[[package]]
-name = "riscv-macros"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e8c4aa1ea1af6dcc83a61be12e8189f9b293c3ba5a487778a4cd89fb060fdbbc"
 dependencies = [
  "proc-macro2",
  "quote",
