@@ -5,7 +5,7 @@
 > Startup code and minimal runtime for mik32 microcontrollers
 
 ## Examles
-Examples are found in the examples/ folder. 
+Examples are found in the `examples/` folder. 
 
 ### Running examples
 - Install `mik32-uploader` by following the instructions in the [mik32-uploader README.md](https://github.com/MikronMIK32/mik32-uploader/blob/master/README.md).
