@@ -6,10 +6,11 @@
             "type": "cortex-debug",
             "request": "attach",
             "servertype": "openocd",
-            "executable": "${workspaceFolder}/target/riscv32imc-unknown-none-elf/debug/mik32-rt",
-            "gdbPath": "gdb-multiarch",
+            "executable": "${workspaceFolder}/target/riscv32imc-unknown-none-elf/release/blink",
+            "gdbPath": "riscv32-unknown-elf-gdb",
             "device": "riscv",
             "interface": "jtag",
+            "svdFile": "mik32v2.svd",
             "configFiles": [
                 "interface/mikron-link.cfg",
                 "interface/mik32.cfg"
