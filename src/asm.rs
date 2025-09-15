@@ -1,3 +1,5 @@
+#![cfg(any(target_arch = "riscv32", target_arch = "riscv64"))]
+
 use core::arch::global_asm;
 
 global_asm!(
