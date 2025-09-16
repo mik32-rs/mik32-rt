@@ -16,7 +16,7 @@ checksum = "361a90feb7004eca4019fb28352a9465666b24f840f5c3cddf0ff13920590b89"
 
 [[package]]
 name = "mik32-rt"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "mik32-rt-macros",
  "riscv",

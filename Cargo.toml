@@ -1,7 +1,7 @@
 [package]
 name = "mik32-rt"
 description = "Minimal runtime / startup for MIK32 MCUs, managed by the mik32-rs team"
-version = "0.2.0"
+version = "0.2.1"
 authors.workspace = true
 homepage.workspace = true
 categories.workspace = true
