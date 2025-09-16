@@ -2,6 +2,23 @@
 
 use core::arch::global_asm;
 
+
+/// Program entry point (`_start`).
+///
+/// This routine performs the essential low-level initialization before 
+/// handing over control to Rust code:
+///
+/// - Sets up the **stack pointer** (`sp`) and **global pointer** (`gp`).
+/// - Copies the `.data` and `.text` sections from flash/ROM into RAM.
+/// - Clears the `.bss` section.
+/// - Calls optional initialization hooks: [`SmallSystemInit`] and [`SystemInit`].
+/// - Jumps into the Rust entry point: [`__start_rust`].
+///
+/// Additionally:
+/// - Defines a basic **trap entry point** (`trap_entry`) which saves all registers,
+///   calls [`trap_handler`], and restores context before returning with `mret`.
+///
+/// This is the very first code executed after reset.
 global_asm!(
     r#"
     #define EXCEPTION_STACK_SPACE 128
